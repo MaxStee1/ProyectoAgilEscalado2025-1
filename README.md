@@ -30,7 +30,7 @@ cd Proyecto-Horarios
 
 - Node.js >= 18
 - npm o yarn
-- SQLite3 (opcional si ya está en `dev.db`)
+- SQLite3
 
 ---
 
