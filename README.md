@@ -1,4 +1,4 @@
-# Proyecto Horarios
+# ProyectoAgilEscalado2025-1
 
 Este es un sistema web de reservas de horarios dividido en frontend y backend. Permite a los usuarios:
 
@@ -22,8 +22,8 @@ Este es un sistema web de reservas de horarios dividido en frontend y backend. P
 ### Clonar el proyecto
 
 ```bash
-git clone https://github.com/tu_usuario/Proyecto-Horarios.git
-cd Proyecto-Horarios
+git clone https://github.com/tu_usuario/ProyectoAgilEscalado2025-1.git
+cd ProyectoAgilEscalado2025-1
 ```
 
 ### Requisitos
