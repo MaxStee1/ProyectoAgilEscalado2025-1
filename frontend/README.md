@@ -36,4 +36,3 @@ La API es consumida mediante `axios` desde los componentes.
 - React + Vite
 - Axios
 - TypeScript
-- CSS plano (estilizado manualmente)
