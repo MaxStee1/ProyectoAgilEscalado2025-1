@@ -1,0 +1,70 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  }
+  
+  .login-box {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px auto;
+    background-color: #2b4a6f;
+    border-radius: 50%;
+    background-image: url("https://cdn-icons-png.flaticon.com/512/847/847969.png");
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  h2 {
+    margin-bottom: 24px;
+    color: #2b4a6f;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+  
+  .button-group button {
+    margin: 10px 5px 0 5px;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2b4a6f;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  
+  .button-group button:hover {
+    background-color: #3f6692;
+  }
+  
