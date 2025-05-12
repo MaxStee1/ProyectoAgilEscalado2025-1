@@ -68,3 +68,38 @@
     background-color: #3f6692;
   }
   
+  .error-message{
+    padding: 0;
+    text-shadow: 0 0 10px black;
+    height: 20px;
+    visibility: hidden;
+    color: rgba(100% 0 20% / 0.8);
+    margin-top: 20px;
+    margin-bottom: 0;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .error-message.visible {
+    visibility: visible;
+  }
+
+  .mode-selector {
+    padding: 1rem;
+  }
+
+  .mode-button {
+    padding: 0.5rem;
+    border: none;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #2b4a6f;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .mode-button:hover {
+    color: white;
+    background-color: #2b4a6f;
+    transform: scale(1.1);
+  }
