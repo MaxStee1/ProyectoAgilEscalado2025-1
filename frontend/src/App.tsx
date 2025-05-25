@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import Home from './pages/Home'
@@ -6,8 +6,21 @@ import Home from './pages/Home'
 function App() {
   const [token, setToken] = useState<string | null>(null)
 
+  // Recuperar token de localStorage al cargar la app
+  useEffect(() => {
+    const savedToken = localStorage.getItem('token')
+    if (savedToken) setToken(savedToken)
+  }, [])
+
+  // Guardar token en localStorage al iniciar sesión
+  const handleLogin = (newToken: string) => {
+    setToken(newToken)
+    localStorage.setItem('token', newToken)
+  }
+
   const handleLogout = () => {
     setToken(null)
+    localStorage.removeItem('token')
   }
 
   return (
@@ -27,7 +40,7 @@ function App() {
           ( 
             <Navigate to='/home' replace /> 
           ) : ( 
-            <LoginForm onLoginSuccess={setToken} /> 
+            <LoginForm onLoginSuccess={handleLogin} /> 
           ) 
         } 
       />
