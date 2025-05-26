@@ -1,0 +1,39 @@
+.reservation-card {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 1rem;
+}
+
+.reservation-data {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.reservation-data label {
+	color: #3b82f6;
+}
+
+.reservation-id {
+	background-color: rgba(147, 51, 234, 0.2);
+	border: 1px solid rgba(168, 85, 247, 0.3);
+	color: #d8b4fe;
+	width: fit-content;
+	padding: 0.2rem 0.7rem;
+	border-radius: 2rem;
+}
+
+.time-data {
+	color: #cbd5e1;
+}
+
+.reservation-details {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	font-size: 0.8rem;
+}
+
+.movie-title {
+	font-weight: 600;
+}
