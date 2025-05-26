@@ -20,7 +20,7 @@ export const crearReserva = async (req: Request, res: Response) => {
 				.json({ error: 'Este horario ya está reservado o no existe' })
 		}
 
-		const reserva = await prisma.reserva.create({
+		const reservation = await prisma.reserva.create({
 			data: {
 				userId,
 				horarioId,
@@ -32,9 +32,9 @@ export const crearReserva = async (req: Request, res: Response) => {
 			data: { reservado: true },
 		})
 
-		res.json({ message: 'Reserva creada con éxito', reserva })
+		res.json({ message: 'Reserva creada con éxito', reservation })
 	} catch (err) {
-		res.status(500).json({ error: 'Error al crear la reserva' })
+		res.status(500).json({ error: 'Error al crear la reservation' })
 	}
 }
 
@@ -53,4 +53,34 @@ export const obtenerMisReservas = async (req: Request, res: Response) => {
 	} catch {
 		res.status(500).json({ error: 'Error al obtener tus reservas' })
 	}
+}
+
+export const deleteReservation = async (req: Request, res: Response) => {
+	const { id } = req.params
+	const userId = (req as any).userId
+	let reservation = null
+
+	try {
+		reservation = await prisma.reserva.findUnique({
+			where: { id: Number(id) },
+		})
+	} catch (err) {
+		res.status(500).json({ error: 'Error al eliminar la reserva' })
+	}
+
+	if (!reservation || reservation.userId !== userId) {
+		res.status(404).json({ error: 'Reserva no encontrada' })
+		return
+	}
+
+	await prisma.reserva.delete({
+		where: { id: Number(id) },
+	})
+
+	await prisma.horario.update({
+		where: { id: reservation.horarioId },
+		data: { reservado: false },
+	})
+
+	res.json({ message: 'Reserva eliminada con éxito' })
 }

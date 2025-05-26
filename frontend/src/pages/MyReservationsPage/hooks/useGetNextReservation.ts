@@ -1,6 +1,6 @@
 import type { Reservation } from '../../../domain/Reservation/Reservation'
 
-const useGetNextReservation = (reservations: Reservation[]) => {
+const useGetNextReservation = (reservations: Reservation[] | undefined) => {
 	const weekdayMap: Record<string, number> = {
 		Domingo: 0,
 		Lunes: 1,
@@ -25,7 +25,6 @@ const useGetNextReservation = (reservations: Reservation[]) => {
 		date.setDate(now.getDate() + dayOffset)
 		date.setHours(hour, minute, 0, 0)
 
-		// If it's today but already passed, move to next week
 		if (dayOffset === 0 && date <= now) {
 			date.setDate(date.getDate() + 7)
 		}
@@ -34,6 +33,9 @@ const useGetNextReservation = (reservations: Reservation[]) => {
 	}
 
 	const getNextFunctionDate = (): string => {
+		if (!reservations || reservations.length === 0) {
+			return 'Ninguna'
+		}
 		const now = new Date()
 
 		const upcoming = reservations
