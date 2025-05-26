@@ -37,3 +37,17 @@
 .movie-title {
 	font-weight: 600;
 }
+
+.cancel-button {
+	background-color: #f87171;
+	color: white;
+	border: none;
+	padding: 0.4rem 0.8rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+	background-color: #ef4444;
+}

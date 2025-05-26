@@ -1,26 +1,20 @@
 import './MyReservationsPage.css'
 
-import { useEffect, useState } from 'react'
-import type { Reservation } from '../../domain/Reservation/Reservation'
-import { getUserReservations } from '../../services/reservations/get_user_reservations'
-import ReservationCard from './ReservationCard/ReservationCard'
+import { useQuery } from '@tanstack/react-query'
 import { LuCalendar, LuTicket } from 'react-icons/lu'
-import Card from '../../components/Card/Card'
 import { TbMovie } from 'react-icons/tb'
+import Card from '../../components/Card/Card'
+import { getUserReservations } from '../../services/reservations/get_user_reservations'
 import useGetNextReservation from './hooks/useGetNextReservation'
+import ReservationCard from './ReservationCard/ReservationCard'
 
 const MyReservations = () => {
-	const [reservations, setReservations] = useState<Reservation[]>([])
-	const getNextReservation = useGetNextReservation(reservations)
+	const { data, refetch } = useQuery({
+		queryKey: ['reservations'],
+		queryFn: getUserReservations,
+	})
 
-	useEffect(() => {
-		getUserReservations()
-			.then(setReservations)
-			.catch(error => {
-				console.error('Error al obtener reservas:', error)
-				alert('Error al obtener reservas')
-			})
-	}, [])
+	const getNextReservation = useGetNextReservation(data)
 
 	return (
 		<div>
@@ -33,7 +27,7 @@ const MyReservations = () => {
 					<TbMovie className='summary-card-icon' />
 					<div>
 						<p className='summary-header'>Total Reservas</p>
-						<p className='summary-data'>{reservations.length}</p>
+						<p className='summary-data'>{data?.length}</p>
 					</div>
 				</Card>
 
@@ -46,8 +40,12 @@ const MyReservations = () => {
 				</Card>
 			</div>
 			<div className='reservations-list'>
-				{reservations.map(reservation => (
-					<ReservationCard key={reservation.id} reservation={reservation} />
+				{data?.map(reservation => (
+					<ReservationCard
+						key={reservation.id}
+						reservation={reservation}
+						refetchUserReservations={refetch}
+					/>
 				))}
 			</div>
 		</div>
