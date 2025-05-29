@@ -51,7 +51,7 @@ function LoginForm({ onLoginSuccess }: Props) {
             className={`mode-button ${mode === 'login' ? 'active' : ''}`}
             onClick={() => setMode('login')}
           >
-            Iniciar sesion
+            Iniciar sesión
           </button>
           <button
             className={`mode-button ${mode === 'register' ? 'active' : ''}`}
@@ -60,6 +60,7 @@ function LoginForm({ onLoginSuccess }: Props) {
             Registrarse
           </button>
         </div>
+
         {mode === 'login' ? (
           <>
             <h2>Iniciar sesión</h2>
@@ -96,38 +97,38 @@ function LoginForm({ onLoginSuccess }: Props) {
           </>
         ) : (
           <>
-          <h2>Registrarse</h2>
-          <form onSubmit={registrar}>
-            <div className="input-group">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="usuario@correo.com"
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            <h2>Registrarse</h2>
+            <form onSubmit={registrar}>
+              <div className="input-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  placeholder="usuario@correo.com"
+                  value={email}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-            <div className="input-group">
-              <label>Contraseña</label>
-              <input
-                type="password"
-                placeholder="********"
-                minLength={6}
-                value={password}
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+              <div className="input-group">
+                <label>Contraseña</label>
+                <input
+                  type="password"
+                  placeholder="********"
+                  minLength={6}
+                  value={password}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-            <div className="button-group">
-              <button type='submit'>REGISTER</button>
-            </div>
-          </form>
-          {error && <div className="error-message visible">{error}</div>}
-          {!error && <div className="error-message"></div>}
-        </>
+              <div className="button-group">
+                <button type='submit'>REGISTER</button>
+              </div>
+            </form>
+            {error && <div className="error-message visible">{error}</div>}
+            {!error && <div className="error-message"></div>}
+          </>
         )}
       </div>
     </div>

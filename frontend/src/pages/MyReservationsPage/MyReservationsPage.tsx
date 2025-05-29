@@ -1,6 +1,7 @@
 import './MyReservationsPage.css'
 
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { LuCalendar, LuTicket } from 'react-icons/lu'
 import { TbMovie } from 'react-icons/tb'
 import Card from '../../components/Card/Card'
@@ -14,7 +15,20 @@ const MyReservations = () => {
 		queryFn: getUserReservations,
 	})
 
+	const [filtroDia, setFiltroDia] = useState<string>('Todos')
+
 	const getNextReservation = useGetNextReservation(data)
+
+	const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
+	const reservasFiltradas = filtroDia === 'Todos' ? data : data?.filter(r => r.horario.dia === filtroDia)
+	const reservasOrdenadas = reservasFiltradas?.slice().sort((a, b) => {
+		const diaA = diasSemana.indexOf(a.horario.dia)
+		const diaB = diasSemana.indexOf(b.horario.dia)
+		if (diaA !== diaB) return diaA - diaB
+		const horaA = parseInt(a.horario.hora)
+		const horaB = parseInt(b.horario.hora)
+		return horaA - horaB
+	})
 
 	return (
 		<div>
@@ -22,6 +36,7 @@ const MyReservations = () => {
 				<LuTicket className='page-title-icon' />
 				<p>Mis Reservas Activas</p>
 			</div>
+
 			<div className='reservations-summary'>
 				<Card className='summary-card'>
 					<TbMovie className='summary-card-icon' />
@@ -39,8 +54,24 @@ const MyReservations = () => {
 					</div>
 				</Card>
 			</div>
+
+			<div className='reservations-filter'>
+				<label htmlFor="filtro-dia">Filtrar por día:</label>
+				<select
+					id="filtro-dia"
+					value={filtroDia}
+					onChange={e => setFiltroDia(e.target.value)}
+					className="filter-select"
+				>
+					<option value="Todos">Todos</option>
+					{diasSemana.map(dia => (
+						<option key={dia} value={dia}>{dia}</option>
+					))}
+				</select>
+			</div>
+
 			<div className='reservations-list'>
-				{data?.map(reservation => (
+				{reservasOrdenadas?.map(reservation => (
 					<ReservationCard
 						key={reservation.id}
 						reservation={reservation}

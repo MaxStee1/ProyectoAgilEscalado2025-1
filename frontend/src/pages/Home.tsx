@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../components/Card/Card'
+import { toast } from 'react-toastify'
 
 export type Horario = {
 	id: number
@@ -30,7 +31,7 @@ function Home({ token, onLogout }: Props) {
 			)
 			setHorarios(res.data.horariosDisponibles)
 		} catch {
-			alert('Error al obtener horarios')
+			toast.error('Error al obtener horarios')
 		} finally {
 			setLoading(false)
 		}
@@ -48,10 +49,10 @@ function Home({ token, onLogout }: Props) {
 					},
 				}
 			)
-			alert('Reserva exitosa')
-			obtenerHorariosDisponibles() // actualizar lista
+			toast.success('Reserva exitosa 🎉')
+			obtenerHorariosDisponibles()
 		} catch {
-			alert('Error al reservar horario')
+			toast.error('Error al reservar horario')
 		} finally {
 			setReservandoId(null)
 		}
@@ -61,23 +62,14 @@ function Home({ token, onLogout }: Props) {
 		obtenerHorariosDisponibles()
 	}, [])
 
-	// Agrupar horarios por día
 	const horariosPorDia = horarios.reduce((acc, horario) => {
-		if (!acc[horario.dia]) {
-			acc[horario.dia] = []
-		}
+		if (!acc[horario.dia]) acc[horario.dia] = []
 		acc[horario.dia].push(horario)
 		return acc
 	}, {} as Record<string, Horario[]>)
 
 	return (
-		<div
-			style={{
-				padding: 40,
-				maxWidth: 800,
-				margin: '0 auto',
-			}}
-		>
+		<div style={{ padding: 40, maxWidth: 800, margin: '0 auto' }}>
 			<header
 				style={{
 					display: 'flex',
@@ -122,37 +114,17 @@ function Home({ token, onLogout }: Props) {
 				</h3>
 
 				{loading ? (
-					<div
-						style={{
-							textAlign: 'center',
-							padding: 40,
-							color: '#666',
-						}}
-					>
+					<div style={{ textAlign: 'center', padding: 40, color: '#666' }}>
 						Cargando horarios disponibles...
 					</div>
 				) : Object.keys(horariosPorDia).length === 0 ? (
-					<div
-						style={{
-							textAlign: 'center',
-							padding: 20,
-							color: '#666',
-						}}
-					>
+					<div style={{ textAlign: 'center', padding: 20, color: '#666' }}>
 						No hay horarios disponibles en este momento.
 					</div>
 				) : (
 					Object.entries(horariosPorDia).map(([dia, horariosDia]) => (
 						<div key={dia} style={{ marginBottom: 25 }}>
-							<h4
-								style={{
-									margin: '0 0 10px 0',
-
-									fontSize: '18px',
-								}}
-							>
-								{dia}
-							</h4>
+							<h4 style={{ margin: '0 0 10px 0', fontSize: '18px' }}>{dia}</h4>
 							<div
 								style={{
 									display: 'grid',

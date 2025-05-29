@@ -5,6 +5,7 @@ import Card from '../../../components/Card/Card'
 import { LuCalendar } from 'react-icons/lu'
 import { FaRegClock } from 'react-icons/fa6'
 import { cancelReservation } from '../../../services/reservations/cancel_reservation'
+import { toast } from 'react-toastify'
 
 type ReservationCardProps = {
 	reservation: Reservation
@@ -15,6 +16,16 @@ const ReservationCard = ({
 	reservation,
 	refetchUserReservations,
 }: ReservationCardProps) => {
+	const handleCancel = async () => {
+		try {
+			await cancelReservation(reservation.id)
+			toast.success('Reserva cancelada exitosamente ✨')
+			if (refetchUserReservations) refetchUserReservations()
+		} catch {
+			toast.error('Ocurrió un error al cancelar la reserva')
+		}
+	}
+
 	return (
 		<Card className='reservation-card'>
 			<div className='reservation-data reservation-id'>
@@ -34,14 +45,8 @@ const ReservationCard = ({
 					<p>{reservation.horario.hora}</p>
 				</div>
 			</div>
-			<button
-				className='cancel-button'
-				onClick={() => {
-					cancelReservation(reservation.id).then(() => {
-						if (refetchUserReservations) refetchUserReservations()
-					})
-				}}
-			>
+
+			<button className='cancel-button' onClick={handleCancel}>
 				Cancelar
 			</button>
 		</Card>
